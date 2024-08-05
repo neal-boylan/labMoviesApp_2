@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
-import { MovieDetailsProps } from "../../types/interfaces"; 
+import { MovieDetailsProps } from "../../types/interfaces";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { MoviesContext } from "../../contexts/moviesContext";
 
 const styles = {
-    root: {  
+  root: {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
@@ -24,10 +25,10 @@ const styles = {
 };
 
 const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
+  const { favourites, addToFavourites } = useContext(MoviesContext);
 
-  const favourites = JSON.parse(localStorage.getItem("favourites") || '[]');
-  const isFavourite = favourites.find((favourite) => favourite.id === movie.id);
-  
+  const isFavourite = favourites.find((id) => id === movie.id) ? true : false;
+
   return (
     <Paper component="div" sx={styles.root}>
       <IconButton aria-label="go back">
@@ -45,9 +46,10 @@ const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
       />
 
       <Typography variant="h4" component="h3">
-        {movie.title}{"   "}
+        {movie.title}
+        {"   "}
         <a href={movie.homepage}>
-          <HomeIcon color="primary"  fontSize="large"/>
+          <HomeIcon color="primary" fontSize="large" />
         </a>
         <br />
         <span>{`${movie.tagline}`} </span>
