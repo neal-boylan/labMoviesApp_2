@@ -35,6 +35,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
   const addToFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prevFavourites) => {
       if (!prevFavourites.includes(movie.id)) {
+        console.log([...prevFavourites, movie.id]);
         return [...prevFavourites, movie.id];
       }
       return prevFavourites;
