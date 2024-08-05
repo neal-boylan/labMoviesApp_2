@@ -68,7 +68,11 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
       </Paper>
       <Paper component="ul" sx={styles.chipSet}>
         <li>
-          <Chip label="Genres" sx={styles.chipLabel} color="primary" />
+          <Chip
+            label="Production Countires"
+            sx={styles.chipLabel}
+            color="primary"
+          />
         </li>
         {movie.production_companies.map((p) => (
           <li key={p.origin_country}>

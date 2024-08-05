@@ -3,14 +3,20 @@ import { BaseMovieProps, Review } from "../types/interfaces";
 
 interface MovieContextInterface {
   favourites: number[];
+  mustWatches: number[];
   addToFavourites: (movie: BaseMovieProps) => void;
   removeFromFavourites: (movie: BaseMovieProps) => void;
+  addToMustWatch: (movie: BaseMovieProps) => void;
+  removeFromMustWatch: (movie: BaseMovieProps) => void;
   addReview: (movie: BaseMovieProps, review: Review) => void;
 }
 const initialContextState: MovieContextInterface = {
   favourites: [],
+  mustWatches: [],
   addToFavourites: () => {},
   removeFromFavourites: () => {},
+  addToMustWatch: () => {},
+  removeFromMustWatch: () => {},
   addReview: (movie, review) => {
     movie.id, review;
   },
@@ -24,6 +30,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
 }) => {
   const [myReviews, setMyReviews] = useState<Review[]>([]);
   const [favourites, setFavourites] = useState<number[]>([]);
+  const [mustWatches, setMustWatches] = useState<number[]>([]);
 
   const addToFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prevFavourites) => {
@@ -40,6 +47,22 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
     );
   }, []);
 
+  const addToMustWatch = useCallback((movie: BaseMovieProps) => {
+    setMustWatches((prevMustWatches) => {
+      if (!prevMustWatches.includes(movie.id)) {
+        console.log([...prevMustWatches, movie.id]);
+        return [...prevMustWatches, movie.id];
+      }
+      return prevMustWatches;
+    });
+  }, []);
+
+  const removeFromMustWatch = useCallback((movie: BaseMovieProps) => {
+    setMustWatches((prevMustWatches) =>
+      prevMustWatches.filter((mId) => mId !== movie.id)
+    );
+  }, []);
+
   const addReview = (movie: BaseMovieProps, review: Review) => {
     setMyReviews({ ...myReviews, [movie.id]: review });
   };
@@ -48,8 +71,11 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
     <MoviesContext.Provider
       value={{
         favourites,
+        mustWatches,
         addToFavourites,
         removeFromFavourites,
+        addToMustWatch,
+        removeFromMustWatch,
         addReview,
       }}
     >
