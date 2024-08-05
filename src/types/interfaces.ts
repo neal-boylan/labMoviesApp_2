@@ -19,10 +19,31 @@ export interface BaseMovieProps {
 	genre_ids?: number[];
 }
 
+export interface BaseSeriesProps {
+	name: string;
+	origin_country: string[];
+	homepage?: string | undefined;
+	id: number;
+	original_language: string;
+	overview: string;
+	first_air_date: string;
+	vote_average: number;
+	popularity: number;
+	poster_path?: string;
+	vote_count: number;
+	favourite?: boolean;
+	must_watch?: boolean;
+	genre_ids?: number[];
+}
+
 export interface BaseMovieListProps { 
 	movies: BaseMovieProps[];
 	action: (m: BaseMovieProps) => React.ReactNode;
 }
+
+export interface BaseSeriesListProps { 
+	series: BaseSeriesProps[];
+}   
 
 export interface MovieDetailsProps extends BaseMovieProps {
 	genres: {
@@ -52,7 +73,7 @@ export interface MoviePageProps {
   images: MovieImage[];
 }
 
-export type FilterOption = "title" | "genre";
+export type FilterOption = "title" | "name" | "genre";
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;

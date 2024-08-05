@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
+import SeriesPage from "./pages/seriesPage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MustWatchMoviesPage from "./pages/mustWatchMoviesPage";
@@ -12,6 +13,9 @@ import MovieReviewPage from "./pages/movieReviewPage";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
 import SiteHeader from "./components/siteHeader";
 import MoviesContextProvider from "./contexts/moviesContext";
+import sample from "./stories/sampleData";
+
+const series = [sample, sample, sample, sample, sample, sample, sample];
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +35,7 @@ const App = () => {
         <MoviesContextProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/series" element={<SeriesPage series={series} />} />
             <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
             <Route
               path="/movies/favourites"
