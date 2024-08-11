@@ -9,13 +9,20 @@ const SeriesListPage: React.FC = () => {
   const favourites = series.filter(s => s.favourite);
 
   localStorage.setItem("favourites", JSON.stringify(favourites));
-  // New function
+  
   const addToFavourites = (seriesId: number) => {
     const updatedSeries = series.map((s: BaseSeriesProps) =>
       s.id === seriesId ? { ...s, favourite: true } : s
     );
     setSeries(updatedSeries);
   };
+
+  /* useEffect(() => {
+    getSeries().then(series => {
+      setSeries(series);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); */
 
   useEffect(() => {
     fetch(
