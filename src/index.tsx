@@ -13,7 +13,7 @@ import MustWatchMoviesPage from "./pages/mustWatchMoviesPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
-import SeriesReviewPage from "./pages/movieReviewPage";
+import SeriesReviewPage from "./pages/seriesReviewPage";
 import AddSeriesReviewPage from "./pages/addMovieReviewPage";
 import SiteHeader from "./components/siteHeader";
 import MoviesContextProvider from "./contexts/moviesContext";
@@ -58,9 +58,15 @@ const App = () => {
             <Route path="/movies/mustwatch" element={<MustWatchMoviesPage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
             <Route path="/movies/reviews/:id" element={<MovieReviewPage />} />
-            <Route path="/movies/reviews/form" element={<AddMovieReviewPage />} />
+            <Route
+              path="/movies/reviews/form"
+              element={<AddMovieReviewPage />}
+            />
             <Route path="/series/reviews/:id" element={<SeriesReviewPage />} />
-            <Route path="/series/reviews/form" element={<AddSeriesReviewPage />} />
+            <Route
+              path="/series/reviews/form"
+              element={<AddSeriesReviewPage />}
+            />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </MoviesContextProvider>
