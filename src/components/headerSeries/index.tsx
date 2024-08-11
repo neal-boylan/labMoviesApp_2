@@ -4,6 +4,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import HomeIcon from "@mui/icons-material/Home";
+import { SeriesDetailsProps } from "../../types/interfaces";
 
 const styles = {
   root: {
@@ -11,24 +13,24 @@ const styles = {
     justifyContent: "space-around",
     alignItems: "center",
     flexWrap: "wrap",
-    marginBottom: 1.5,
+    padding: 1.5,
   },
 };
 
-interface HeaderProps {
-  title: string;
-}
-
-const Header: React.FC<HeaderProps> = (headerProps) => {
-  const title = headerProps.title;
-
+const SeriesHeader: React.FC<SeriesDetailsProps> = (series) => {
   return (
     <Paper component="div" sx={styles.root}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
+
       <Typography variant="h4" component="h3">
-        {title}
+        {series.name}
+        {"   "}
+        <a href={series.homepage}>
+          <HomeIcon color="primary" fontSize="large" />
+        </a>
+        <br />
       </Typography>
       <IconButton aria-label="go forward">
         <ArrowForwardIcon color="primary" fontSize="large" />
@@ -37,4 +39,4 @@ const Header: React.FC<HeaderProps> = (headerProps) => {
   );
 };
 
-export default Header;
+export default SeriesHeader;

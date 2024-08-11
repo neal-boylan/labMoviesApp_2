@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from "react";
-import { FilterOption, GenreData } from "../../types/interfaces";
+import React, { useState, useEffect, ChangeEvent } from "react";
+import { FilterOption } from "../../types/interfaces";
 import { SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -11,9 +11,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SortIcon from "@mui/icons-material/Sort";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { getGenres } from "../../api/tmdb-api";
-import { useQuery } from "react-query";
-import Spinner from "../spinner";
+// import { getSeriesGenres } from "../../api/tmdb-api";
 
 const styles = {
   root: {
@@ -39,21 +37,21 @@ const FilterSeriesCard: React.FC<FilterSeriesCardProps> = ({
   genreFilter,
   onUserInput,
 }) => {
-  const { data, error, isLoading, isError } = useQuery<GenreData, Error>(
-    "genres",
-    getGenres
-  );
+  const [genres, setGenres] = useState([{ id: "0", name: "All" }]);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-  if (isError) {
-    return <h1>{(error as Error).message}</h1>;
-  }
-  const genres = data?.genres || [];
-  if (genres[0].name !== "All") {
-    genres.unshift({ id: "0", name: "All" });
-  }
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/genre/tv/list?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    )
+      .then(res => res.json())
+      .then(json => {
+        return json.genres
+      })
+      .then(apiGenres => {
+        setGenres([genres[0], ...apiGenres]);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = (
     e: SelectChangeEvent,
@@ -112,7 +110,7 @@ const FilterSeriesCard: React.FC<FilterSeriesCardProps> = ({
         <CardContent>
           <Typography variant="h5" component="h1">
             <SortIcon fontSize="large" />
-            Sort the TV series.
+            Sort the series.
           </Typography>
         </CardContent>
       </Card>

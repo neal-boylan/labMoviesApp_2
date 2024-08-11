@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -13,6 +13,8 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import img from "../../images/film-poster-placeholder.png";
 import { BaseSeriesProps } from "../../types/interfaces";
+import { Link } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -22,10 +24,33 @@ const styles = {
   },
 };
 
-const SeriesCard: React.FC<BaseSeriesProps> = (series) => {
+interface SeriesCardProps {
+  series: BaseSeriesProps;
+  selectFavourite: (seriesId: number) => void;
+}
+
+const SeriesCard: React.FC<SeriesCardProps> = ({ series, selectFavourite }) => {
+  const handleAddToFavourite = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    selectFavourite(series.id);
+  };
+
   return (
     <Card sx={styles.card}>
-      <CardHeader title={series.name} />
+      <CardHeader
+        avatar={
+          series.favourite ? (
+            <Avatar sx={styles.avatar}>
+              <FavoriteIcon />
+            </Avatar>
+          ) : null
+        }
+        title={
+          <Typography variant="h5" component="p">
+            {series.name}{" "}
+          </Typography>
+        }
+      />
       <CardMedia
         sx={styles.media}
         image={
@@ -51,12 +76,17 @@ const SeriesCard: React.FC<BaseSeriesProps> = (series) => {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton
+          aria-label="add to favourites"
+          onClick={handleAddToFavourite}
+        >
           <FavoriteIcon color="primary" fontSize="large" />
         </IconButton>
-        <Button variant="outlined" size="medium" color="primary">
-          More Info ...
-        </Button>
+        <Link to={`/series/${series.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );

@@ -16,17 +16,18 @@ const styles = {
 };
 
 interface HeaderProps {
-  name: string;
+  title: string;
 }
 
-const SeriesHeader: React.FC<HeaderProps> = (headerProps) => {
-  const title = headerProps.name;
+const Header: React.FC<HeaderProps> = (headerProps) => {
+  const title = headerProps.title;
 
   return (
     <Paper component="div" sx={styles.root}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
+
       <Typography variant="h4" component="h3">
         {title}
       </Typography>
@@ -37,4 +38,4 @@ const SeriesHeader: React.FC<HeaderProps> = (headerProps) => {
   );
 };
 
-export default SeriesHeader;
+export default Header;

@@ -43,6 +43,7 @@ export interface BaseMovieListProps {
 
 export interface BaseSeriesListProps { 
 	series: BaseSeriesProps[];
+	selectFavourite: (seriesId: number) => void;
 }   
 
 export interface MovieDetailsProps extends BaseMovieProps {
@@ -55,6 +56,13 @@ export interface MovieDetailsProps extends BaseMovieProps {
 		logo_path: string;
 		name: string;
 		origin_country: string;
+	}[];
+}
+
+export interface SeriesDetailsProps extends BaseSeriesProps {
+	genres: {
+		id: number;
+		name: string;
 	}[];
 }
 
@@ -73,9 +81,28 @@ export interface MoviePageProps {
   images: MovieImage[];
 }
 
+export interface SeriesImage {
+  file_path: string;
+  aspect_ratio?: number;
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
+export interface SeriesPageProps {
+  series: SeriesDetailsProps;
+  images: SeriesImage[];
+}
+
 export type FilterOption = "title" | "name" | "genre";
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
+  title: string;
+}
+
+export interface SeriesListPageTemplateProps extends BaseSeriesListProps {
   title: string;
 }
 
@@ -97,6 +124,13 @@ export interface DiscoverMovies {
   total_pages: number;
   total_results: number;
   results: BaseMovieProps[];
+}
+
+export interface DiscoverSeries {
+  page: number;	
+  total_pages: number;
+  total_results: number;
+  results: BaseSeriesProps[];
 }
 
 export interface Review {
