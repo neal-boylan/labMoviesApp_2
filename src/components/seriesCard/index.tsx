@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -10,11 +10,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
 import img from "../../images/film-poster-placeholder.png";
 import { BaseSeriesProps } from "../../types/interfaces";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
+import { SeriesContext } from "../../contexts/seriesContext";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -26,20 +26,19 @@ const styles = {
 
 interface SeriesCardProps {
   series: BaseSeriesProps;
-  selectFavourite: (seriesId: number) => void;
+  action: (s: BaseSeriesProps) => React.ReactNode;
 }
 
-const SeriesCard: React.FC<SeriesCardProps> = ({ series, selectFavourite }) => {
-  const handleAddToFavourite = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    selectFavourite(series.id);
-  };
+const SeriesCard: React.FC<SeriesCardProps> = ({ series, action }) => {
+  const { favourites, addToFavourites } = useContext(SeriesContext);
+
+  const isFavourite = favourites.find((id) => id === series.id) ? true : false;
 
   return (
     <Card sx={styles.card}>
       <CardHeader
         avatar={
-          series.favourite ? (
+          isFavourite ? (
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
@@ -76,12 +75,7 @@ const SeriesCard: React.FC<SeriesCardProps> = ({ series, selectFavourite }) => {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton
-          aria-label="add to favourites"
-          onClick={handleAddToFavourite}
-        >
-          <FavoriteIcon color="primary" fontSize="large" />
-        </IconButton>
+        {action(series)}
         <Link to={`/series/${series.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...

@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React /*, { useState }*/ from "react";
 import Header from "../headerSeriesList";
-import FilterCard from "../filterSeriesCard";
+// import FilterCard from "../filterSeriesCard";
 import Grid from "@mui/material/Grid";
-import Fab from "@mui/material/Fab";
-import Drawer from "@mui/material/Drawer";
+// import Fab from "@mui/material/Fab";
+// import Drawer from "@mui/material/Drawer";
 import SeriesList from "../seriesList";
 import { SeriesListPageTemplateProps } from "../../types/interfaces";
 
+const styles = {
+  root: {
+    backgroundColor: "#bfbfbf",
+  },
+};
+/*
 const styles = {
   root: {
     padding: "20px",
@@ -17,14 +23,14 @@ const styles = {
     top: 2,
     right: 2,
   },
-};
+}; */
 
 const SeriesListPageTemplate: React.FC<SeriesListPageTemplateProps> = ({
   series,
   title,
-  selectFavourite,
+  action,
 }) => {
-  const [nameFilter, setNameFilter] = useState("");
+  /*const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -34,14 +40,14 @@ const SeriesListPageTemplate: React.FC<SeriesListPageTemplateProps> = ({
     .filter((s) => {
       return s.name.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
-    .filter((m) => {
-      return genreId > 0 ? m.genre_ids?.includes(genreId) : true;
+    .filter((s) => {
+      return genreId > 0 ? s.genre_ids?.includes(genreId) : true;
     });
 
   const handleChange = (type: string, value: string) => {
     if (type === "name") setNameFilter(value);
     else setGenreFilter(value);
-  };
+  }; */
 
   return (
     <>
@@ -50,31 +56,9 @@ const SeriesListPageTemplate: React.FC<SeriesListPageTemplateProps> = ({
           <Header title={title} />
         </Grid>
         <Grid item container spacing={5}>
-          <SeriesList
-            series={displayedSeries}
-            selectFavourite={selectFavourite}
-          />
+          <SeriesList series={series /*displayedSeries*/} action={action} />
         </Grid>
       </Grid>
-      <Fab
-        color="secondary"
-        variant="extended"
-        onClick={() => setDrawerOpen(true)}
-        sx={styles.fab}
-      >
-        Filter
-      </Fab>
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-      >
-        <FilterCard
-          onUserInput={handleChange}
-          nameFilter={nameFilter}
-          genreFilter={genreFilter}
-        />
-      </Drawer>
     </>
   );
 };
