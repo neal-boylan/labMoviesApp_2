@@ -15,11 +15,7 @@ export const genreFilter = (movie: BaseMovieProps, value: string) => {
 };
 
 export const yearFilter = (movie: BaseMovieProps, value: string) => {
-  console.log("Value: " + value);
-  console.log("rd: " + movie.release_date);
-  return (
-    movie.release_date.substring(0, 3).search(value.substring(0, 3)) !== -1
-  );
+  return movie.release_date.substring(0, 4).search(value) !== -1;
 };
 
 const styles = {

@@ -57,16 +57,22 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({
     genres.unshift({ id: "0", name: "All" });
   }
 
-  const arrayRange = (start: number, stop: number, step: number) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (value, index) => start + index * step
-    );
+  function generateYearsBetween(startYear = 1900, endYear?: number) {
+    const endDate = endYear || new Date().getFullYear();
+    const years = [];
 
-  const currentYear = new Date().getFullYear;
+    for (let i = startYear; i <= endDate; i++) {
+      years.push(startYear);
+      startYear++;
+    }
+    return years;
+  }
 
-  // const years = arrayRange(1900, Number(currentYear), 1);
-  const years = ["1900", "1980", "1990", "2024"];
+  const years = generateYearsBetween(1900);
+
+  years.reverse();
+  years.map(String);
+
   const handleChange = (
     e: SelectChangeEvent,
     type: FilterOption,

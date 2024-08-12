@@ -32,47 +32,15 @@ interface FilterSeriesCardProps {
   onUserInput: (f: FilterOption, s: string) => void;
   nameFilter: string;
   genreFilter: string;
+  yearFilter: string;
 }
 
 const FilterSeriesCard: React.FC<FilterSeriesCardProps> = ({
   nameFilter,
   genreFilter,
+  yearFilter,
   onUserInput,
 }) => {
-  /* const [genres, setGenres] = useState([{ id: "0", name: "All" }]);
-
-  useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/genre/tv/list?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        return json.genres;
-      })
-      .then((apiGenres) => {
-        setGenres([genres[0], ...apiGenres]);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleChange = (
-    e: SelectChangeEvent,
-    type: FilterOption,
-    value: string
-  ) => {
-    e.preventDefault();
-    onUserInput(type, value);
-  };
-
-  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(e, "name", e.target.value);
-  };
-
-  const handleGenreChange = (e: SelectChangeEvent) => {
-    handleChange(e, "genre", e.target.value);
-  };
-*/
-
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>(
     "genres",
     getSeriesGenres
@@ -89,6 +57,21 @@ const FilterSeriesCard: React.FC<FilterSeriesCardProps> = ({
     genres.unshift({ id: "0", name: "All" });
   }
 
+  function generateYearsBetween(startYear = 1900, endYear?: number) {
+    const endDate = endYear || new Date().getFullYear();
+    const years = [];
+
+    for (let i = startYear; i <= endDate; i++) {
+      years.push(startYear);
+      startYear++;
+    }
+    return years;
+  }
+
+  const years = generateYearsBetween(1900);
+  years.reverse();
+  years.map(String);
+
   const handleChange = (
     e: SelectChangeEvent,
     type: FilterOption,
@@ -104,6 +87,10 @@ const FilterSeriesCard: React.FC<FilterSeriesCardProps> = ({
 
   const handleGenreChange = (e: SelectChangeEvent) => {
     handleChange(e, "genre", e.target.value);
+  };
+
+  const handleYearChange = (e: SelectChangeEvent) => {
+    handleChange(e, "year", e.target.value);
   };
 
   return (
@@ -135,6 +122,23 @@ const FilterSeriesCard: React.FC<FilterSeriesCardProps> = ({
                 return (
                   <MenuItem key={genre.id} value={genre.id}>
                     {genre.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl sx={styles.formControl}>
+            <InputLabel id="year-label">Year</InputLabel>
+            <Select
+              labelId="year-label"
+              id="year-select"
+              value={yearFilter}
+              onChange={handleYearChange}
+            >
+              {years.map((year) => {
+                return (
+                  <MenuItem key={year} value={year}>
+                    {year}
                   </MenuItem>
                 );
               })}

@@ -50,11 +50,6 @@ const HomePage: React.FC = () => {
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet =
-      /*
-      type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
-    */
       type === "title"
         ? [changedFilter, filterValues[1], filterValues[2]]
         : type === "genre"

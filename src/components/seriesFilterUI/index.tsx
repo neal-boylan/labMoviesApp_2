@@ -8,10 +8,14 @@ export const nameFilter = (series: BaseSeriesProps, value: string): boolean => {
   return series.name.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
-export const genreFilter = (movie: BaseSeriesProps, value: string) => {
+export const genreFilter = (series: BaseSeriesProps, value: string) => {
   const genreId = Number(value);
-  const genreIds = movie.genre_ids;
+  const genreIds = series.genre_ids;
   return genreId > 0 && genreIds ? genreIds.includes(genreId) : true;
+};
+
+export const yearFilter = (series: BaseSeriesProps, value: string) => {
+  return series.first_air_date.substring(0, 4).search(value) !== -1;
 };
 
 const styles = {
@@ -30,12 +34,14 @@ interface SeriesFilterUIProps {
   onFilterValuesChange: (f: string, s: string) => void;
   nameFilter: string;
   genreFilter: string;
+  yearFilter: string;
 }
 
 const SeriesFilterUI: React.FC<SeriesFilterUIProps> = ({
   onFilterValuesChange,
   nameFilter,
   genreFilter,
+  yearFilter,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -58,6 +64,7 @@ const SeriesFilterUI: React.FC<SeriesFilterUIProps> = ({
           onUserInput={onFilterValuesChange}
           nameFilter={nameFilter}
           genreFilter={genreFilter}
+          yearFilter={yearFilter}
         />
       </Drawer>
     </>
