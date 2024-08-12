@@ -29,9 +29,9 @@ const SiteHeader: React.FC = () => {
 
   const menuOptions = [
     { label: "Home", path: "/" },
+    { label: "Top Rated Movies", path: "/movies/toprated" },
     { label: "Upcoming Movies", path: "/movies/upcoming" },
     { label: "Series", path: "/series" },
-    { label: "Upcoming Series", path: "/series/upcoming" },
     { label: "Movie Favorites", path: "/movies/favourites" },
     { label: "Series Favorites", path: "/series/favourites" },
     { label: "MustWatch", path: "/movies/mustwatch" },
