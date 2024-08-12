@@ -96,7 +96,7 @@ export interface SeriesPageProps {
   images: SeriesImage[];
 }
 
-export type FilterOption = "title" | "name" | "genre";
+export type FilterOption = "title" | "name" | "genre" | "year";
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;

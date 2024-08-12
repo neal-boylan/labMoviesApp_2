@@ -32,11 +32,13 @@ interface FilterMoviesCardProps {
   onUserInput: (f: FilterOption, s: string) => void;
   titleFilter: string;
   genreFilter: string;
+  yearFilter: string;
 }
 
 const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({
   titleFilter,
   genreFilter,
+  yearFilter,
   onUserInput,
 }) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>(
@@ -55,6 +57,16 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({
     genres.unshift({ id: "0", name: "All" });
   }
 
+  const arrayRange = (start: number, stop: number, step: number) =>
+    Array.from(
+      { length: (stop - start) / step + 1 },
+      (value, index) => start + index * step
+    );
+
+  const currentYear = new Date().getFullYear;
+
+  // const years = arrayRange(1900, Number(currentYear), 1);
+  const years = ["1900", "1980", "1990", "2024"];
   const handleChange = (
     e: SelectChangeEvent,
     type: FilterOption,
@@ -70,6 +82,10 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({
 
   const handleGenreChange = (e: SelectChangeEvent) => {
     handleChange(e, "genre", e.target.value);
+  };
+
+  const handleYearChange = (e: SelectChangeEvent) => {
+    handleChange(e, "year", e.target.value);
   };
 
   return (
@@ -101,6 +117,23 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({
                 return (
                   <MenuItem key={genre.id} value={genre.id}>
                     {genre.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl sx={styles.formControl}>
+            <InputLabel id="year-label">Year</InputLabel>
+            <Select
+              labelId="year-label"
+              id="year-select"
+              value={yearFilter}
+              onChange={handleYearChange}
+            >
+              {years.map((year) => {
+                return (
+                  <MenuItem key={year} value={year}>
+                    {year}
                   </MenuItem>
                 );
               })}
