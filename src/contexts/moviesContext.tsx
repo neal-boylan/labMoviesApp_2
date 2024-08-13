@@ -4,6 +4,7 @@ import { BaseMovieProps, Review } from "../types/interfaces";
 interface MovieContextInterface {
   favourites: number[];
   mustWatches: number[];
+  myReviews: Review[];
   addToFavourites: (movie: BaseMovieProps) => void;
   removeFromFavourites: (movie: BaseMovieProps) => void;
   addToMustWatch: (movie: BaseMovieProps) => void;
@@ -13,6 +14,7 @@ interface MovieContextInterface {
 const initialContextState: MovieContextInterface = {
   favourites: [],
   mustWatches: [],
+  myReviews: [],
   addToFavourites: () => {},
   removeFromFavourites: () => {},
   addToMustWatch: () => {},
@@ -71,6 +73,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
   return (
     <MoviesContext.Provider
       value={{
+        myReviews,
         favourites,
         mustWatches,
         addToFavourites,

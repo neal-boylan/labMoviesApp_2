@@ -29,8 +29,6 @@ const TemplateSeriesPage: React.FC<TemplateSeriesPageProps> = ({
   series,
   children,
 }) => {
-  // const [images, setImages] = useState([]);
-
   const { data, error, isLoading, isError } = useQuery<SeriesImage[], Error>(
     ["images", series.id],
     () => getSeriesImages(series.id)

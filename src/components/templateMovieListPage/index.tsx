@@ -21,7 +21,7 @@ const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = ({
         <Header title={title} />
       </Grid>
       <Grid item container spacing={5}>
-        <MovieList action={action} movies={movies}></MovieList>
+        <MovieList action={action} movies={movies} />
       </Grid>
     </Grid>
   );

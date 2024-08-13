@@ -47,7 +47,7 @@ const SeriesDetails: React.FC<SeriesDetailsProps> = (series) => {
           <Chip label="Genres" sx={styles.chipLabel} color="primary" />
         </li>
         {series.genres.map((g) => (
-          <li key={g.name}>
+          <li key={g.id}>
             <Chip label={g.name} />
           </li>
         ))}
