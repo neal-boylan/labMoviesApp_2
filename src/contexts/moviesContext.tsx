@@ -1,20 +1,23 @@
 import React, { useState, useCallback } from "react";
-import { BaseMovieProps, Review } from "../types/interfaces";
+import { BaseMovieProps, Review, CreateMovieProps } from "../types/interfaces";
 
 interface MovieContextInterface {
   favourites: number[];
   mustWatches: number[];
   myReviews: Review[];
+  myCreatedMovies: CreateMovieProps[];
   addToFavourites: (movie: BaseMovieProps) => void;
   removeFromFavourites: (movie: BaseMovieProps) => void;
   addToMustWatch: (movie: BaseMovieProps) => void;
   removeFromMustWatch: (movie: BaseMovieProps) => void;
   addReview: (movie: BaseMovieProps, review: Review) => void;
+  addCreatedMovie: (movie: CreateMovieProps) => void;
 }
 const initialContextState: MovieContextInterface = {
   favourites: [],
   mustWatches: [],
   myReviews: [],
+  myCreatedMovies: [],
   addToFavourites: () => {},
   removeFromFavourites: () => {},
   addToMustWatch: () => {},
@@ -22,6 +25,7 @@ const initialContextState: MovieContextInterface = {
   addReview: (movie, review) => {
     movie.id, review;
   },
+  addCreatedMovie: () => {},
 };
 
 export const MoviesContext =
@@ -31,6 +35,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [myReviews, setMyReviews] = useState<Review[]>([]);
+  const [myCreatedMovies, setMyCreatedMovies] = useState<CreateMovieProps[]>([]);
   const [favourites, setFavourites] = useState<number[]>([]);
   const [mustWatches, setMustWatches] = useState<number[]>([]);
 
@@ -70,10 +75,15 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
     setMyReviews({ ...myReviews, [movie.id]: review });
   };
 
+  const addCreatedMovie = (createdMovie: CreateMovieProps) => {
+    setMyCreatedMovies({ ...myCreatedMovies, [createdMovie.title]: createdMovie });
+  };
+
   return (
     <MoviesContext.Provider
       value={{
         myReviews,
+        myCreatedMovies,
         favourites,
         mustWatches,
         addToFavourites,
@@ -81,6 +91,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
         addToMustWatch,
         removeFromMustWatch,
         addReview,
+        addCreatedMovie,
       }}
     >
       {children}

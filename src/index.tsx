@@ -18,6 +18,7 @@ import MovieReviewPage from "./pages/movieReviewPage";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
 import SeriesReviewPage from "./pages/seriesReviewPage";
 import AddSeriesReviewPage from "./pages/addMovieReviewPage";
+import CreateMoviePage from "./pages/createMoviePage";
 import SiteHeader from "./components/siteHeader";
 import MoviesContextProvider from "./contexts/moviesContext";
 import SeriesContextProvider from "./contexts/seriesContext";
@@ -72,6 +73,10 @@ const App = () => {
               <Route
                 path="/series/reviews/form"
                 element={<AddSeriesReviewPage />}
+              />
+              <Route
+                path="/movies/create"
+                element={<CreateMoviePage />}
               />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

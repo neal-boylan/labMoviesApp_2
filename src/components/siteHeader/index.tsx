@@ -35,6 +35,7 @@ const SiteHeader: React.FC = () => {
     { label: "Movie Favorites", path: "/movies/favourites" },
     { label: "Series Favorites", path: "/series/favourites" },
     { label: "MustWatch", path: "/movies/mustwatch" },
+    { label: "Create Movie", path: "/movies/create" },
   ];
 
   const handleMenuSelect = (pageURL: string) => {

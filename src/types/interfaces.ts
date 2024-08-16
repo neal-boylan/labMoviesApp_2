@@ -100,12 +100,12 @@ export type FilterOption = "title" | "name" | "genre" | "year";
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;
-  path: string;
+  path?: string;
 }
 
 export interface SeriesListPageTemplateProps extends BaseSeriesListProps {
   title: string;
-  path: string;
+  path?: string;
 }
 
 export interface GenreData {
@@ -135,4 +135,13 @@ export interface Review {
 	agree: boolean,
 	rating: number,
 	movieId: number,
+}
+
+export interface CreateMovieProps {
+	title: string;
+	overview: string;
+	release_date: string;
+	runtime: number;
+	genres: string;
+	production_companies: string;
 }
