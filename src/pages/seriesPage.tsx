@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import PageTemplate from "../components/templateSeriesListPage";
 import { getSeries } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -29,10 +30,11 @@ const yearFiltering = {
 };
 
 const SeriesListPage: React.FC = () => {
+  const { pg } = useParams();
   const { data, error, isLoading, isError } = useQuery<DiscoverSeries, Error>(
-    "discoverSeries",
-    getSeries
-  );
+    ["discoverSeries",pg], () =>
+      getSeries(pg || "1")
+    );
   const { filterValues, setFilterValues, filterFunction } = useFiltering([
     titleFiltering,
     genreFiltering,
@@ -65,6 +67,7 @@ const SeriesListPage: React.FC = () => {
     <>
       <PageTemplate
         title="Discover Series"
+        path="discover"
         series={displayedSeries}
         action={(series: BaseSeriesProps) => {
           return <AddToSeriesFavouritesIcon {...series} />;

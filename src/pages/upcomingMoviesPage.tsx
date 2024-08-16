@@ -1,10 +1,12 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import PageTemplate from "../components/templateMovieListPage";
 import { getUpcomingMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  yearFilter,
 } from "../components/movieFilterUI";
 import { DiscoverMovies, BaseMovieProps } from "../types/interfaces";
 import { useQuery } from "react-query";
@@ -21,15 +23,22 @@ const genreFiltering = {
   value: "0",
   condition: genreFilter,
 };
+const yearFiltering = {
+  name: "year",
+  value: "",
+  condition: yearFilter,
+};
 
 const UpcomingMoviesPage: React.FC = () => {
+  const { pg } = useParams();
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    "upcoming",
-    getUpcomingMovies
-  );
+    ["upcoming",pg], () =>
+      getUpcomingMovies(pg || "1")
+    );
   const { filterValues, setFilterValues, filterFunction } = useFiltering([
     titleFiltering,
     genreFiltering,
+    yearFiltering
   ]);
 
   if (isLoading) {
@@ -44,8 +53,10 @@ const UpcomingMoviesPage: React.FC = () => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet =
       type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
+        ? [changedFilter, filterValues[1], filterValues[2]]
+        : type === "genre"
+          ? [filterValues[0], changedFilter, filterValues[2]]
+          : [filterValues[0], filterValues[1], changedFilter];
     setFilterValues(updatedFilterSet);
   };
 
@@ -56,6 +67,7 @@ const UpcomingMoviesPage: React.FC = () => {
     <>
       <PageTemplate
         title="Upcoming Movies"
+        path="upcoming"
         movies={displayedMovies}
         action={(movie: BaseMovieProps) => {
           return <AddToMustWatchIcon {...movie} />;
@@ -65,6 +77,7 @@ const UpcomingMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        yearFilter={filterValues[2].value}
       />
     </>
   );

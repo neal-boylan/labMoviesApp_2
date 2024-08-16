@@ -72,6 +72,7 @@ const FavouriteMoviesPage: React.FC = () => {
     <>
       <PageTemplate
         title="Favourite Movies"
+        path=""
         movies={displayedMovies}
         action={(movie) => {
           return (

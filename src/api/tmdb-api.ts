@@ -11,9 +11,22 @@ export const getMovies = () => {
     });
 };
 
-export const getSeries = () => {
+export const discoverMovies = (pg: string) => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pg}`
+  ).then((response) => {
+    if (!response.ok)
+      throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
+    return response.json();
+  })
+    .catch((error) => {
+      throw error
+    });
+};
+
+export const getSeries = (pg: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pg}`
   ).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch TV series. Response status: ${response.status}`);
@@ -24,9 +37,9 @@ export const getSeries = () => {
     });
 };
 
-export const getUpcomingMovies = () => {
+export const getUpcomingMovies = (pg: string) => {
 	return fetch(
-		`https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+		`https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=${pg}`
 	).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
@@ -37,9 +50,9 @@ export const getUpcomingMovies = () => {
     });
 };
 
-export const getTopRatedMovies = () => {
+export const getTopRatedMovies = (pg: string) => {
 	return fetch(
-		`https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+		`https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=${pg}`
 	).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch movies. Response status: ${response.status}`);

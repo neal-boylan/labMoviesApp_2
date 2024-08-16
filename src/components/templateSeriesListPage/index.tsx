@@ -14,11 +14,12 @@ const SeriesListPageTemplate: React.FC<SeriesListPageTemplateProps> = ({
   series,
   title,
   action,
+  path
 }) => {
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
-        <Header title={title} />
+        <Header title={title} path={path}/>
       </Grid>
       <Grid item container spacing={5}>
         <SeriesList series={series} action={action} />

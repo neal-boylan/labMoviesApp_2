@@ -7,6 +7,7 @@ import HomePage from "./pages/homePage";
 import SeriesPage from "./pages/seriesPage";
 import SeriesDetailsPage from "./pages/seriesDetailsPage";
 import MoviePage from "./pages/movieDetailsPage";
+import DiscoverMoviesPage from "./pages/discoverMoviesPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import FavouriteSeriesPage from "./pages/favouriteSeriesPage";
 import MustWatchMoviesPage from "./pages/mustWatchMoviesPage";
@@ -40,10 +41,11 @@ const App = () => {
           <SeriesContextProvider>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/series" element={<SeriesPage />} />
+              <Route path="/series/discover/:pg" element={<SeriesPage />} />
               <Route path="/series/:id" element={<SeriesDetailsPage />} />
-              <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-              <Route path="/movies/toprated" element={<TopRatedMoviesPage />} />
+              <Route path="/movies/discover/:pg" element={<DiscoverMoviesPage />} />
+              <Route path="/movies/upcoming/:pg" element={<UpcomingMoviesPage />} />
+              <Route path="/movies/toprated/:pg" element={<TopRatedMoviesPage />} />
               <Route path="/series/upcoming" element={<UpcomingSeriesPage />} />
               <Route
                 path="/movies/favourites"

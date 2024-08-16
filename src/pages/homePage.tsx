@@ -65,6 +65,7 @@ const HomePage: React.FC = () => {
     <>
       <PageTemplate
         title="Discover Movies"
+        path="discover"
         movies={displayedMovies}
         action={(movie: BaseMovieProps) => {
           return <AddToFavouritesIcon {...movie} />;

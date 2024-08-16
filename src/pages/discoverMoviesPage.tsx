@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import PageTemplate from "../components/templateMovieListPage";
-import { getTopRatedMovies } from "../api/tmdb-api";
+import { discoverMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
@@ -29,13 +29,13 @@ const yearFiltering = {
   condition: yearFilter,
 };
 
-const TopRatedMoviesPage: React.FC = () => {
+const DiscoverMoviesPage: React.FC = () => {
   // const [page, setPage ] = useState<String>("");
   const { pg } = useParams();
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    ["topRated",pg], () =>
-      getTopRatedMovies(pg || "1")
-    );
+    ["discover",pg], () =>
+    discoverMovies(pg || "1")
+  );
   const { filterValues, setFilterValues, filterFunction } = useFiltering([
     titleFiltering,
     genreFiltering,
@@ -63,12 +63,12 @@ const TopRatedMoviesPage: React.FC = () => {
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
-
+  
   return (
     <>
       <PageTemplate
-        title="Top Rated Movies"
-        path="toprated"
+        title="Discover Movies"
+        path="discover"
         movies={displayedMovies}
         action={(movie: BaseMovieProps) => {
           return <AddToFavouritesIcon {...movie} />;
@@ -83,4 +83,4 @@ const TopRatedMoviesPage: React.FC = () => {
     </>
   );
 };
-export default TopRatedMoviesPage;
+export default DiscoverMoviesPage;
