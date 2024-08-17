@@ -25,7 +25,7 @@ const styles = {
 };
 
 const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
-  const { favourites, addToFavourites } = useContext(MoviesContext);
+  const { favourites } = useContext(MoviesContext);
 
   const isFavourite = favourites.find((id) => id === movie.id) ? true : false;
 
