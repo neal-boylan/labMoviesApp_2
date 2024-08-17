@@ -8,6 +8,7 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import SeriesReviews from "../seriesReviews";
+import { Link } from "react-router-dom";
 
 const styles = {
   chipSet: {
@@ -57,8 +58,22 @@ const SeriesDetails: React.FC<SeriesDetailsProps> = (series) => {
           icon={<StarRate />}
           label={`${series.vote_average} (${series.vote_count} votes)`}
         />
-        <Chip label={`Released: ${series.first_air_date}`} />
+        <Chip label={`First Air Date: ${series.first_air_date}`} />
+        <Chip label={`Last Air Date: ${series.last_air_date}`} />
       </Paper>
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Seasons" sx={styles.chipLabel} color="primary" />
+        </li>
+        {series.seasons.map((s) => (
+          <li key={s.id}>
+            <Link to={`/series/${series.id}/season/${s.season_number}`}>
+              <Chip label={s.name} />
+            </Link>
+          </li>
+        ))}
+      </Paper>
+
       <Fab
         color="secondary"
         variant="extended"

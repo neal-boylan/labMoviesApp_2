@@ -39,18 +39,36 @@ export interface BaseSeriesProps {
 	favourite?: boolean;
 	must_watch?: boolean;
 	genre_ids?: number[];
-	seasons: SeriesSeasonProps[];
+	seasons: SeasonDetailsProps[];
 }
 
-export interface SeriesSeasonProps {
+export interface SeasonDetailsProps {
 	air_date: string;
 	episode_count: number;
 	id: number;
+	number: number;
 	name: string;
 	overview: string;
-	poster_path: string,
+	poster_path: string;
+	season_number: number;
+	vote_average: number;
+	series: BaseSeriesProps;
+	episodes: EpisodeDetailsProps[];
+}
+
+export interface EpisodeDetailsProps {
+	air_date: number;
+	id: number;
+	episode_number: number;
+	name: string;
+	overview: string;
+	runtime: number;
 	season_number: number,
-	vote_average: number
+	poster_path: string,
+	vote_average: number,
+	vote_count: number
+	series: SeriesDetailsProps,
+	season: SeasonDetailsProps
 }
 
 export interface BaseMovieListProps { 
@@ -99,6 +117,16 @@ export interface MoviePageProps {
 }
 
 export interface SeriesImage {
+  file_path: string;
+  aspect_ratio?: number;
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
+export interface SeasonImage {
   file_path: string;
   aspect_ratio?: number;
   height?: number;

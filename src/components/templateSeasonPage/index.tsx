@@ -1,10 +1,10 @@
 import React from "react";
-import SeriesHeader from "../headerSeries";
+import SeasonHeader from "../headerSeason";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getSeriesImages } from "../../api/tmdb-api";
-import { SeriesImage, SeriesDetailsProps } from "../../types/interfaces";
+import { getSeasonImages } from "../../api/tmdb-api";
+import { SeasonImage, SeasonDetailsProps } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../spinner";
 
@@ -20,18 +20,25 @@ const styles = {
   },
 };
 
-interface TemplateSeriesPageProps {
-  series: SeriesDetailsProps;
+interface TemplateSeasonPageProps {
+  // series: BaseSeriesProps;
+  seriesid: string;
+  season: SeasonDetailsProps;
   children: React.ReactElement;
 }
 
-const TemplateSeriesPage: React.FC<TemplateSeriesPageProps> = ({
-  series,
+const TemplateSeasonPage: React.FC<TemplateSeasonPageProps> = ({
+  seriesid,
+  season,
   children,
 }) => {
-  const { data, error, isLoading, isError } = useQuery<SeriesImage[], Error>(
-    ["images", series.id],
-    () => getSeriesImages(series.id)
+  const { data, error, isLoading, isError } = useQuery<SeasonImage[], Error>(
+    ["images", seriesid, season],
+    () =>
+      getSeasonImages(
+        String(seriesid) || "",
+        String(season.season_number) || ""
+      )
   );
 
   if (isLoading) {
@@ -42,17 +49,17 @@ const TemplateSeriesPage: React.FC<TemplateSeriesPageProps> = ({
     return <h1>{error.message}</h1>;
   }
 
-  const images = data as SeriesImage[];
+  const images = data as SeasonImage[];
 
   return (
     <>
-      <SeriesHeader {...series} />
+      <SeasonHeader {...season} />
 
       <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid item xs={3}>
           <div>
             <ImageList cols={1}>
-              {images.map((image: SeriesImage) => (
+              {images.map((image: SeasonImage) => (
                 <ImageListItem
                   key={image.file_path}
                   sx={styles.gridListTile}
@@ -76,4 +83,4 @@ const TemplateSeriesPage: React.FC<TemplateSeriesPageProps> = ({
   );
 };
 
-export default TemplateSeriesPage;
+export default TemplateSeasonPage;

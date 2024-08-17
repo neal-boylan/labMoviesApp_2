@@ -105,6 +105,34 @@ export const getSingleSeries = (id: string) => {
  });
 };
 
+export const getSeason = (seriesid: string, seasonNumber: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${seriesid}/season/${seasonNumber}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Failed to get series data. Response status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    throw error
+ });
+};
+
+export const getEpisode = (seriesid: string, seasonNumber: string, episodeNumber: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${seriesid}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Failed to get series data. Response status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    throw error
+ });
+};
+
 export const getGenres = () => {
   return fetch(
     "https://api.themoviedb.org/3/genre/movie/list?api_key=" + import.meta.env.VITE_TMDB_KEY + "&language=en-US"
@@ -148,6 +176,20 @@ export const getMovieImages = (id: string | number) => {
 export const getSeriesImages = (id: string | number) => {
   return fetch(
     `https://api.themoviedb.org/3/tv/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error("failed to fetch images");
+    }
+    return response.json();
+  }).then((json) => json.posters)
+    .catch((error) => {
+      throw error
+    });
+};
+
+export const getSeasonImages = (seriesid: string, seasonNumber: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${seriesid}/season/${seasonNumber}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error("failed to fetch images");

@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext } from "react";
+import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -30,7 +30,7 @@ interface SeriesCardProps {
 }
 
 const SeriesCard: React.FC<SeriesCardProps> = ({ series, action }) => {
-  const { favourites, addToFavourites } = useContext(SeriesContext);
+  const { favourites } = useContext(SeriesContext);
 
   const isFavourite = favourites.find((id) => id === series.id) ? true : false;
 

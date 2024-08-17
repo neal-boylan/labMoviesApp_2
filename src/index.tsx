@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import SeriesPage from "./pages/seriesPage";
 import SeriesDetailsPage from "./pages/seriesDetailsPage";
+import SeasonDetailsPage from "./pages/seasonDetailsPage";
 import MoviePage from "./pages/movieDetailsPage";
 import DiscoverMoviesPage from "./pages/discoverMoviesPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
@@ -44,9 +45,22 @@ const App = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="/series/discover/:pg" element={<SeriesPage />} />
               <Route path="/series/:id" element={<SeriesDetailsPage />} />
-              <Route path="/movies/discover/:pg" element={<DiscoverMoviesPage />} />
-              <Route path="/movies/upcoming/:pg" element={<UpcomingMoviesPage />} />
-              <Route path="/movies/toprated/:pg" element={<TopRatedMoviesPage />} />
+              <Route
+                path="/series/:seriesid/season/:seasonNumber"
+                element={<SeasonDetailsPage />}
+              />
+              <Route
+                path="/movies/discover/:pg"
+                element={<DiscoverMoviesPage />}
+              />
+              <Route
+                path="/movies/upcoming/:pg"
+                element={<UpcomingMoviesPage />}
+              />
+              <Route
+                path="/movies/toprated/:pg"
+                element={<TopRatedMoviesPage />}
+              />
               <Route path="/series/upcoming" element={<UpcomingSeriesPage />} />
               <Route
                 path="/movies/favourites"
@@ -74,10 +88,7 @@ const App = () => {
                 path="/series/reviews/form"
                 element={<AddSeriesReviewPage />}
               />
-              <Route
-                path="/movies/create"
-                element={<CreateMoviePage />}
-              />
+              <Route path="/movies/create" element={<CreateMoviePage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </SeriesContextProvider>
