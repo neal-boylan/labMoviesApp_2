@@ -7,6 +7,7 @@ import HomePage from "./pages/homePage";
 import SeriesPage from "./pages/seriesPage";
 import SeriesDetailsPage from "./pages/seriesDetailsPage";
 import SeasonDetailsPage from "./pages/seasonDetailsPage";
+import EpisodeDetailsPage from "./pages/episodeDetailsPage";
 import MoviePage from "./pages/movieDetailsPage";
 import DiscoverMoviesPage from "./pages/discoverMoviesPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
@@ -48,6 +49,10 @@ const App = () => {
               <Route
                 path="/series/:seriesid/season/:seasonNumber"
                 element={<SeasonDetailsPage />}
+              />
+              <Route
+                path="/series/:seriesid/season/:seasonNumber/episode/:episodeNumber"
+                element={<EpisodeDetailsPage />}
               />
               <Route
                 path="/movies/discover/:pg"

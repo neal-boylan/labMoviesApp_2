@@ -1,14 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import EpisodeDetails from "../components/seasonDetails";
-import PageTemplate from "../components/templateSeasonPage";
+import EpisodeDetails from "../components/episodeDetails";
+import PageTemplate from "../components/templateEpisodePage";
 // import useSeries from "../hooks/useSeries";
 import { getEpisode } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { EpisodeDetailsProps } from "../types/interfaces";
 
-const SeasonDetailsPage: React.FC = () => {
+const EpisodeDetailsPage: React.FC = () => {
   const { seriesid, seasonNumber, episodeNumber } = useParams();
 
   const {
@@ -17,7 +17,7 @@ const SeasonDetailsPage: React.FC = () => {
     isLoading,
     isError,
   } = useQuery<EpisodeDetailsProps, Error>(
-    ["season", seriesid, seasonNumber, episodeNumber],
+    ["episode", seriesid, seasonNumber, episodeNumber],
     () => getEpisode(seriesid || "", seasonNumber || "", episodeNumber || "")
   );
 
@@ -35,7 +35,7 @@ const SeasonDetailsPage: React.FC = () => {
         <>
           <PageTemplate
             seriesid={String(seriesid)}
-            season={season}
+            seasonNumber={String(seasonNumber)}
             episode={episode}
           >
             <EpisodeDetails {...episode} />
@@ -48,4 +48,4 @@ const SeasonDetailsPage: React.FC = () => {
   );
 };
 
-export default SeasonDetailsPage;
+export default EpisodeDetailsPage;

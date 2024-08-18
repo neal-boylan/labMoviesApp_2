@@ -34,15 +34,15 @@ const styles = {
 
 const SeasonDetails: React.FC<SeasonDetailsProps> = (season) => {
   const { seriesid, seasonNumber } = useParams();
-  const [epNum, setEpNum] = useState<number>(1);
+  // const [epNum, setEpNum] = useState<number>(1);
 
   console.log("series.id: ", seriesid);
-  console.log("epNum: ", epNum);
+  // console.log("epNum: ", epNum);
 
   return (
     <>
       <Typography variant="h5" component="h3">
-        Season {season.season_number}
+        Season {seasonNumber}
       </Typography>
 
       <Typography variant="h6" component="p">
@@ -54,16 +54,11 @@ const SeasonDetails: React.FC<SeasonDetailsProps> = (season) => {
           <Chip label="Episodes" sx={styles.chipLabel} color="primary" />
         </li>
         {season.episodes.map((ep) => (
-          <li key={ep.id}>
-            <Chip
-              label={ep.episode_number + ": " + ep.name}
-              variant="outlined"
-              onClick={() => setEpNum(ep.episode_number)}
-            />
+          <li key={ep.episode_number}>
             <Link
-              to={`/series/${seriesid}/season/${ep.season_number}/episode/${ep.episode_number}`}
+              to={`/series/${seriesid}/season/${seasonNumber}/episode/${ep.episode_number}`}
             >
-              <Chip label={ep.name} />
+              <Chip label={ep.episode_number + ": " + ep.name} />
             </Link>
           </li>
         ))}

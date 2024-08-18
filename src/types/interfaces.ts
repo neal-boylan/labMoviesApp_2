@@ -67,8 +67,6 @@ export interface EpisodeDetailsProps {
 	poster_path: string,
 	vote_average: number,
 	vote_count: number
-	series: SeriesDetailsProps,
-	season: SeasonDetailsProps
 }
 
 export interface BaseMovieListProps { 
