@@ -19,6 +19,24 @@ export interface BaseMovieProps {
 	genre_ids?: number[];
 }
 
+export interface BasePersonProps {
+	gender: number,
+	id: number,
+	name: string,
+	popularity: number,
+	profile_path: string,
+	known_for: PersonCreditProps[],
+}
+
+export interface PersonCreditProps {
+	title: string,
+	id: number,
+	media_type: string,
+	release_date: string,
+	poster_path: string,
+}
+
+
 export interface BaseSeriesProps {
 	name: string;
 	origin_country: string[];
@@ -74,6 +92,10 @@ export interface BaseMovieListProps {
 	action: (m: BaseMovieProps) => React.ReactNode;
 }
 
+export interface BasePersonListProps { 
+	people: BasePersonProps[];
+}
+
 export interface BaseSeriesListProps { 
 	series: BaseSeriesProps[];
 	action: (s: BaseSeriesProps) => React.ReactNode;
@@ -99,7 +121,26 @@ export interface SeriesDetailsProps extends BaseSeriesProps {
 	}[];
 }
 
+export interface PersonDetailsProps extends BasePersonProps {
+	biography: string,
+	birthday: string,
+	deathday: string,
+	place_of_birth: string,
+	profile_path: string,
+	homepage: string,
+}
+
 export interface MovieImage {
+  file_path: string;
+  aspect_ratio?: number;
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
+export interface PersonImage {
   file_path: string;
   aspect_ratio?: number;
   height?: number;
@@ -112,6 +153,11 @@ export interface MovieImage {
 export interface MoviePageProps {
   movie: MovieDetailsProps;
   images: MovieImage[];
+}
+
+export interface PersonPageProps {
+  person: PersonDetailsProps;
+  images: PersonImage[];
 }
 
 export interface SeriesImage {
@@ -139,7 +185,7 @@ export interface SeriesPageProps {
   images: SeriesImage[];
 }
 
-export type FilterOption = "title" | "name" | "genre" | "year";
+export type FilterOption = "title" | "name" | "genre" | "year" | "gender";
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;
@@ -147,6 +193,11 @@ export interface MovieListPageTemplateProps extends BaseMovieListProps {
 }
 
 export interface SeriesListPageTemplateProps extends BaseSeriesListProps {
+  title: string;
+  path?: string;
+}
+
+export interface PersonListPageTemplateProps extends BasePersonListProps {
   title: string;
   path?: string;
 }
@@ -163,6 +214,13 @@ export interface DiscoverMovies {
   total_pages: number;
   total_results: number;
   results: BaseMovieProps[];
+}
+
+export interface DiscoverPeople {
+  page: number;	
+  total_pages: number;
+  total_results: number;
+  results: BasePersonProps[];
 }
 
 export interface DiscoverSeries {
