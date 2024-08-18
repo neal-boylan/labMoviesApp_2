@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
 import { SeriesDetailsProps } from "../../types/interfaces";
@@ -30,10 +27,6 @@ const SeriesHeader: React.FC<SeriesDetailsProps> = (series) => {
   const isFavourite = favourites.find((id) => id === series.id) ? true : false;
   return (
     <Paper component="div" sx={styles.root}>
-      <IconButton aria-label="go back">
-        <ArrowBackIcon color="primary" fontSize="large" />
-      </IconButton>
-
       <CardHeader
         avatar={
           isFavourite ? (
@@ -53,9 +46,6 @@ const SeriesHeader: React.FC<SeriesDetailsProps> = (series) => {
         <br />
         <span>{`${series.tagline}`} </span>
       </Typography>
-      <IconButton aria-label="go forward">
-        <ArrowForwardIcon color="primary" fontSize="large" />
-      </IconButton>
     </Paper>
   );
 };
